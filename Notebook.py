@@ -32,6 +32,8 @@ sys.executable
 
 # %%
 import pandas as pd
+import os
+import numpy as np
 
 # %% [markdown]
 # ## Collecting Data
@@ -54,10 +56,33 @@ import pandas as pd
 # ## Exploring Data
 
 # %% [markdown]
+# Checking the data folder
+
+# %%
+DATA_DIR = './data/stack-overflow-developer-survey-2021/'
+# files = !ls $DATA_DIR 
+files = [file for file in files if '.csv' in file]
+files
+
+# %% [markdown]
+# Reading data
+
+# %%
+df1 = pd.read_csv(os.path.join(DATA_DIR, files[0]))
+
+# %% [markdown]
 # 1. How many rows and columns?
+
+# %%
+num_rows, num_cols = df1.shape
+num_rows, num_cols
 
 # %% [markdown]
 # 2. What is the meaning of each row?
+
+# %%
+
+# %%
 
 # %% [markdown]
 # 3. Are there duplicated rows?
