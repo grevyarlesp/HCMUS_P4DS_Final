@@ -14,13 +14,14 @@
 #     name: python3
 # ---
 
+# %% [markdown]
+# # Đồ án cuối kì
+
 # %%
 import sys
 sys.executable
 
 # %% [markdown]
-# # Thông tin: 
-#
 # ## Nhóm 11: 
 #
 # | MSSV     | Họ tên         | Github                                        |
@@ -70,6 +71,9 @@ files
 # %%
 df1 = pd.read_csv(os.path.join(DATA_DIR, files[0]))
 
+# %%
+df1
+
 # %% [markdown]
 # 1. How many rows and columns?
 
@@ -81,24 +85,37 @@ num_rows, num_cols
 # 2. What is the meaning of each row?
 
 # %%
+df1.columns
 
-# %%
+# %% [markdown]
+# Là các câu trả lời cho các câu hỏi
 
 # %% [markdown]
 # 3. Are there duplicated rows?
 #
 
+# %%
+have_duplicated_rows = df1.duplicated()
+have_duplicated_rows = have_duplicated_rows.any()
+have_duplicated_rows
+
 # %% [markdown]
-# 4. What is the meaning of each column?
+# Vậy không có dòng bị trùng lặp
 
 # %% [markdown]
 # 5. What is the current data type of each column? Are there columns having inappropriate data types?
+
+# %%
+df1.dtypes
 
 # %% [markdown]
 # 6.  With each numerical column, how are values distributed?
 #
 # -  What is the percentage of missing values?
 # -  Min? max? Are they abnormal?
+
+# %%
+df1.min()
 
 # %% [markdown]
 # 7. With each categorical column, how are values distributed?
@@ -112,7 +129,7 @@ num_rows, num_cols
 # %% [markdown]
 # ## Preprocessing data to answer the questions
 
-# %% [markdown]
+# %% [markdown] tags=[]
 # ## Reflection
 
 # %% [markdown]
