@@ -76,14 +76,17 @@ df1 = pd.read_csv(os.path.join(DATA_DIR, files[0]))
 df1
 
 # %% [markdown]
-# 1. How many rows and columns?
+# ### Questions
+
+# %% [markdown]
+# #### How many rows and columns?
 
 # %%
 num_rows, num_cols = df1.shape
 num_rows, num_cols
 
 # %% [markdown]
-# 2. What is the meaning of each row?
+# #### What is the meaning of each row?
 
 # %%
 df1.columns
@@ -121,75 +124,94 @@ df1['OrgSize']
 # %%
 cols = [
     'MainBranch', 'Employment', 'Country', 'EdLevel', 'Age1stCode', 'LearnCode', 
-    'YearsCode', 'YearsCodePro','DevType', 'OrgSize', 'LanguageHaveWorkedWith',
+    'YearsCode', 'YearsCodePro','DevType', 'OrgSize', 'ConvertedCompYearly', 'LanguageHaveWorkedWith',
     'LanguageWantToWorkWith', 'LanguageWantToWorkWith', 'MiscTechHaveWorkedWith',
     'MiscTechWantToWorkWith', 'NEWCollabToolsWantToWorkWith', 'NEWCollabToolsHaveWorkedWith',
     'OpSys', 'Age', 'Gender'
     
 ]
-numeric_cols = np.array([
+numerical_cols = np.array([
     'YearsCode', 'YearsCodePro', 'ConvertedCompYearly'
 ])
 
 categorical_cols = np.array([
-    'MainBranch', 'Employment', 'Country', 'EdLevel', 'Age1stCode', 'LearnCode',
+    'MainBranch', 'Employment', 'Country', 'EdLevel', 'Age1stCode',
     'DevType', 'OrgSize', 'OpSys', 'Age', 'Gender'
     
 ])
 
+df1 = df1[cols]
+
 # %% [markdown]
-# 3. Are there duplicated rows?
-#
+# #### Are there duplicated rows?
 
 # %%
 have_duplicated_rows = df1.duplicated()
 have_duplicated_rows = have_duplicated_rows.any()
-have_duplicated_rows
+have_duplicated_rows, df1.duplicated().sum()
 
 # %% [markdown]
-# So there are no duplicated rows
+# So there are 3 duplicated rows
+#
 
 # %% [markdown]
-# 5. What is the current data type of each column? Are there columns having inappropriate data types?
+# #### What is the current data type of each column? Are there columns having inappropriate data types?
 
 # %%
-pd.DataFrame(df1.dtypes).T
+pd.DataFrame(df1.dtypes)
 
 # %% [markdown]
-# There are quite many rows with inapproriate data types...
+# There are quite many rows with inapproriate data types...: YearsCode, YearsCodePro
 
 # %% [markdown]
-# 6.  With each numerical column, how are values distributed?
+# ####  With each numerical column, how are values distributed?
 #
 # -  What is the percentage of missing values?
 # -  Min? max? Are they abnormal?
 
 # %%
-numerical_cols = [ConvertedCompYearly, ]
-df1.min(),df1.max()
+numerical_cols
+
+# %%
+df1.loc[:, numerical_cols[0:2]] = df1.loc[:, numerical_cols[0:2]].replace('More than 50 years', '50.1')
+df1.loc[:, numerical_cols[0:2]] = df1.loc[:, numerical_cols[0:2]].replace('Less than 1 year', '0.9')
+df1.loc[:, numerical_cols[0:2]] = df1[numerical_cols[0:2]].astype(np.float64)
+
+
+# %%
+def missing_rate(s):
+    return s.isna().sum() / len(s)
+    
+num_cols_info = df1[numerical_cols].agg([min, max, pd.DataFrame.mean, missing_rate])
+num_cols_info
 
 # %% [markdown]
 # There are many rows with missing values.
 
 # %% [markdown]
-# 7. With each categorical column, how are values distributed?
+# #### With each categorical column, how are values distributed?
 #
 # - What is the percentage of missing values?
 # - How many different values? Show a few. Are they abnormal?
 
 # %%
-df1.nunique()
+df1[categorical_cols]
 
 # %%
-df1['MiscTechHaveWorkedWith']
+
+cate_cols_info = df1[categorical_cols].agg([missing_rate, pd.Series.unique, pd.Series.nunique])
+cate_cols_info
+
+# %%
 
 # %% [markdown]
 # ## Ask meaningful questions
 
 # %% [markdown]
+# - Countries with highest average salary?
+# - Are salaries dependence on programming level?
 # - Top 5 countries with the highest average salaries. 
 # - Top 5 programming language.
-# - Are salaries dependence on programming level?
 # - Ratio of male and female working professionally?
 # - Most commonly used text editor / IDE for each operating system.
 
@@ -199,11 +221,11 @@ df1['MiscTechHaveWorkedWith']
 # %% [markdown]
 # Dropping columns with high misisng value rates 
 
-# %%
-temp_series = df1.isna().sum() / len(df1)
-temp_series = list(temp_series[temp_series < 0.6].index)
-df1 = df1[temp_series]
-df1
+# %% [markdown]
+# ### Answering questions
+
+# %% [markdown]
+# #### Countries with highest average salaries
 
 # %% [markdown] tags=[]
 # ## Reflection
