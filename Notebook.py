@@ -47,7 +47,8 @@ import numpy as np
 #
 # https://stackoverflow.blog/2021/08/30/the-full-data-set-for-the-2021-developer-survey-now-available/
 #
-# > Note you are free to share, adapt, and create derivative works from the public 2021 Stack Overflow Developer Survey results as long as you attribute them to Stack Overflow, keep the database open (if you redistribute it), and continue to share-alike any adapted database under the ODbL.
+# > TLDR: You are free to share, adapt, and create derivative works from The Public 2021 Stack Overflow Developer Survey Results as long as you attribute Stack Overflow, keep the database open (if you redistribute it), and continue to share-alike any adapted database under the ODbl.
+#
 #
 # 3.  How did authors collect data?
 #
@@ -57,7 +58,7 @@ import numpy as np
 # ## Exploring Data
 
 # %% [markdown]
-# Checking the data folder
+# ### Checking the data folder
 
 # %%
 DATA_DIR = './data/stack-overflow-developer-survey-2021/'
@@ -66,7 +67,7 @@ files = [file for file in files if '.csv' in file]
 files
 
 # %% [markdown]
-# Reading data
+# ### Reading data
 
 # %%
 df1 = pd.read_csv(os.path.join(DATA_DIR, files[0]))
@@ -87,8 +88,54 @@ num_rows, num_cols
 # %%
 df1.columns
 
+# %%
+df1['OrgSize']
+
 # %% [markdown]
-# Là các câu trả lời cho các câu hỏi
+#
+# Answers to the questions on stackoverflow. A few we may care about:
+#
+# - MainBranch
+# - Employment 
+# - Country 
+# - EdLevel : Education level
+# - Age1stCode: The age at which they first code
+# - LearnCode: Where they learn code.
+# - YearsCode: Number of years they have been coding
+# - YearsCodePro: number of years they have been coding professionally
+# - DevType:  type of developer
+# - OrgSize: size of the companies they are working at
+# - ConvertedCompYearly: converted yearly compensation in US dollar
+# - LanguageHaveWorkedWith : languages they have worked with
+# - LanguageWantToWorkWith
+# - MiscTechHaveWorkedWith: NumpY, TensorFlow, Flutter, Qt
+# - MiscTechWantToWorkWith
+# - OpSys: Their primary operating system
+# - Age: Age group they belong to
+# - NEWCollabToolsWantToWorkWith: developmenet environment (Vim,PyCharm, Notepad, Sublime,...)
+# - NEWCollabToolsHaveWorkedWith: developmenet environment (Vim,PyCharm, Notepad, Sublime,...)
+# - Gender
+#
+# Refer to the questions sheet for more detail.
+
+# %%
+cols = [
+    'MainBranch', 'Employment', 'Country', 'EdLevel', 'Age1stCode', 'LearnCode', 
+    'YearsCode', 'YearsCodePro','DevType', 'OrgSize', 'LanguageHaveWorkedWith',
+    'LanguageWantToWorkWith', 'LanguageWantToWorkWith', 'MiscTechHaveWorkedWith',
+    'MiscTechWantToWorkWith', 'NEWCollabToolsWantToWorkWith', 'NEWCollabToolsHaveWorkedWith',
+    'OpSys', 'Age', 'Gender'
+    
+]
+numeric_cols = np.array([
+    'YearsCode', 'YearsCodePro', 'ConvertedCompYearly'
+])
+
+categorical_cols = np.array([
+    'MainBranch', 'Employment', 'Country', 'EdLevel', 'Age1stCode', 'LearnCode',
+    'DevType', 'OrgSize', 'OpSys', 'Age', 'Gender'
+    
+])
 
 # %% [markdown]
 # 3. Are there duplicated rows?
@@ -106,7 +153,7 @@ have_duplicated_rows
 # 5. What is the current data type of each column? Are there columns having inappropriate data types?
 
 # %%
-df1.dtypes
+pd.DataFrame(df1.dtypes).T
 
 # %% [markdown]
 # There are quite many rows with inapproriate data types...
@@ -118,6 +165,7 @@ df1.dtypes
 # -  Min? max? Are they abnormal?
 
 # %%
+numerical_cols = [ConvertedCompYearly, ]
 df1.min(),df1.max()
 
 # %% [markdown]
@@ -132,6 +180,9 @@ df1.min(),df1.max()
 # %%
 df1.nunique()
 
+# %%
+df1['MiscTechHaveWorkedWith']
+
 # %% [markdown]
 # ## Ask meaningful questions
 
@@ -139,8 +190,8 @@ df1.nunique()
 # - Top 5 countries with the highest average salaries. 
 # - Top 5 programming language.
 # - Are salaries dependence on programming level?
-# - Ratio of male and female working professionally.
-# - 
+# - Ratio of male and female working professionally?
+# - Most commonly used text editor / IDE for each operating system.
 
 # %% [markdown]
 # ## Preprocessing data to answer the questions
