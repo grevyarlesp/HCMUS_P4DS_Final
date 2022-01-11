@@ -15,21 +15,21 @@
 # ---
 
 # %% [markdown]
-# # Đồ án cuối kì
+# # Final Project
 
 # %%
 import sys
 sys.executable
 
 # %% [markdown]
-# ## Nhóm 11: 
+# ## Group 11: 
 #
 # | MSSV     | Họ tên         | Github                                        |
 # |----------|----------------|-----------------------------------------------|
 # | 19127535 | Trần Kiến Quốc | [grevyarlesp](https://github.com/grevyarlesp) |
 # | 19127637 | Nguyễn Khắc Vỹ | [Khacvy1707](https://github.com/Khacvy1707)   |
 #
-# ## Các thư viện hỗ trợ
+# ## Dependencies
 
 # %%
 import pandas as pd
@@ -41,7 +41,7 @@ import numpy as np
 #
 # 1. What subject is your data about? What is the source of your data?
 #
-# Là tập dữ liệu chứa các câu trả lời của StackOverflow trong developer survey, cho 80000 người.  
+# Answers to StackOverflow Developer Survey 2021
 #
 # 2. Do authors of this data allow you to use like this? You can check the data license
 #
@@ -51,7 +51,7 @@ import numpy as np
 #
 # 3.  How did authors collect data?
 #
-# Dữ liệu được thu thập bằng cách thực hiện khảo sát
+# Data are collected by survey
 
 # %% [markdown]
 # ## Exploring Data
@@ -100,7 +100,7 @@ have_duplicated_rows = have_duplicated_rows.any()
 have_duplicated_rows
 
 # %% [markdown]
-# Vậy không có dòng bị trùng lặp
+# So there are no duplicated rows
 
 # %% [markdown]
 # 5. What is the current data type of each column? Are there columns having inappropriate data types?
@@ -109,7 +109,7 @@ have_duplicated_rows
 df1.dtypes
 
 # %% [markdown]
-# Có khá nhiều cột mang datatypes không phù hợp...
+# There are quite many rows with inapproriate data types...
 
 # %% [markdown]
 # 6.  With each numerical column, how are values distributed?
@@ -121,11 +121,7 @@ df1.dtypes
 df1.min(),df1.max()
 
 # %% [markdown]
-# TỈ lệ bị thiếu cho mỗi cột, khá nhiều cột bị thiếu dữ liệu ...
-# Nên bỏ các số tỉ lệ thiếu quá 0.6
-
-# %%
-df1[list(temp_series)]
+# There are many rows with missing values.
 
 # %% [markdown]
 # 7. With each categorical column, how are values distributed?
@@ -140,18 +136,17 @@ df1.nunique()
 # ## Ask meaningful questions
 
 # %% [markdown]
-# - Lương ở đâu cao nhất?
-# - Top 5 quốc gia có lương trung bình cao nhất. (có ảnh hưởng tới việc chọn môi trường làm việc)
-# - Top 5 ngôn ngữ lập trình được sử dụng nhiều nhất.
-# - Tính mức lương trung bình theo trình độ để đưa ra nhận xét liệu mức lương có được trả theo trình độ cao thấp hay không ?
-# - Tính tỉ lệ nữ và tỉ lệ nam có trình độ master để trả lời câu hỏi liệu có phải phái nữ không phù hợp với ngành IT ?
-#
+# - Top 5 countries with the highest average salaries. 
+# - Top 5 programming language.
+# - Are salaries dependence on programming level?
+# - Ratio of male and female working professionally.
+# - 
 
 # %% [markdown]
 # ## Preprocessing data to answer the questions
 
 # %% [markdown]
-# Bỏ các cột thiếu quá nhiều dữ liệu
+# Dropping columns with high misisng value rates 
 
 # %%
 temp_series = df1.isna().sum() / len(df1)
