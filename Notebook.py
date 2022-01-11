@@ -109,13 +109,23 @@ have_duplicated_rows
 df1.dtypes
 
 # %% [markdown]
+# Có khá nhiều cột mang datatypes không phù hợp...
+
+# %% [markdown]
 # 6.  With each numerical column, how are values distributed?
 #
 # -  What is the percentage of missing values?
 # -  Min? max? Are they abnormal?
 
 # %%
-df1.min()
+df1.min(),df1.max()
+
+# %% [markdown]
+# TỈ lệ bị thiếu cho mỗi cột, khá nhiều cột bị thiếu dữ liệu ...
+# Nên bỏ các số tỉ lệ thiếu quá 0.6
+
+# %%
+df1[list(temp_series)]
 
 # %% [markdown]
 # 7. With each categorical column, how are values distributed?
@@ -123,11 +133,31 @@ df1.min()
 # - What is the percentage of missing values?
 # - How many different values? Show a few. Are they abnormal?
 
+# %%
+df1.nunique()
+
 # %% [markdown]
 # ## Ask meaningful questions
 
 # %% [markdown]
+# - Lương ở đâu cao nhất?
+# - Top 5 quốc gia có lương trung bình cao nhất. (có ảnh hưởng tới việc chọn môi trường làm việc)
+# - Top 5 ngôn ngữ lập trình được sử dụng nhiều nhất.
+# - Tính mức lương trung bình theo trình độ để đưa ra nhận xét liệu mức lương có được trả theo trình độ cao thấp hay không ?
+# - Tính tỉ lệ nữ và tỉ lệ nam có trình độ master để trả lời câu hỏi liệu có phải phái nữ không phù hợp với ngành IT ?
+#
+
+# %% [markdown]
 # ## Preprocessing data to answer the questions
+
+# %% [markdown]
+# Bỏ các cột thiếu quá nhiều dữ liệu
+
+# %%
+temp_series = df1.isna().sum() / len(df1)
+temp_series = list(temp_series[temp_series < 0.6].index)
+df1 = df1[temp_series]
+df1
 
 # %% [markdown] tags=[]
 # ## Reflection
