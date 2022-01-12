@@ -219,9 +219,6 @@ cate_cols_info
 # ## Preprocessing data to answer the questions
 
 # %% [markdown]
-# Dropping columns with high misisng value rates 
-
-# %% [markdown]
 # ### Answering questions
 
 # %% [markdown]
