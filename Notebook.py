@@ -218,7 +218,17 @@ cate_cols_info
 # ### Answering questions
 
 # %% [markdown]
-# #### Countries with highest average salaries
+# #### Top 10 countries with the highest average salaries. 
+#
+# To answer this, we only consider countries with more than 1000 respondences
+
+# %%
+salary_df = df1[['Country', 'ConvertedCompYearly']]
+s = salary_df.groupby('Country').agg({'count', 'mean'})
+s.columns = ['Average', 'Count']
+s = s.loc[s['Count'] >= 1000]
+s = s.sort_values(by = ['Average'], ascending = False)
+s.head(20)
 
 # %% [markdown]
 # #### Top 10 programming language in 2021
