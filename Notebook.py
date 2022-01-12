@@ -27,7 +27,7 @@ sys.executable
 # | MSSV     | Họ tên         | Github                                        |
 # |----------|----------------|-----------------------------------------------|
 # | 19127535 | Trần Kiến Quốc | [grevyarlesp](https://github.com/grevyarlesp) |
-# | 19127637 | Nguyễn Khắc Vỹ | [Khacvy17077](https://github.com/Khacvy1707)   |
+# | 19127637 | Nguyễn Khắc Vỹ | [Khacvy1707](https://github.com/Khacvy1707)   |
 #
 # ## Dependencies
 
