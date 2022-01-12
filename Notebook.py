@@ -202,17 +202,13 @@ df1[categorical_cols]
 cate_cols_info = df1[categorical_cols].agg([missing_rate, pd.Series.unique, pd.Series.nunique])
 cate_cols_info
 
-# %%
-
 # %% [markdown]
 # ## Ask meaningful questions
 
 # %% [markdown]
-# - Countries with highest average salary?
 # - Are salaries dependence on programming level?
-# - Top 5 countries with the highest average salaries. 
-# - Top 5 programming language.
-# - Ratio of male and female working professionally?
+# - Top 10 countries with the highest average salaries. 
+# - Top 10 programming language.
 # - Most commonly used text editor / IDE for each operating system.
 
 # %% [markdown]
@@ -223,6 +219,15 @@ cate_cols_info
 
 # %% [markdown]
 # #### Countries with highest average salaries
+
+# %% [markdown]
+# #### Top 10 programming language in 2021
+
+# %%
+lang_df = pd.DataFrame(df1['LanguageHaveWorkedWith'].str.split(';').explode().reset_index()).groupby('LanguageHaveWorkedWith').count()
+lang_df = lang_df.sort_values('index', ascending = False)
+lang_df.columns = ['count']
+lang_df.head(10)
 
 # %% [markdown] tags=[]
 # ## Reflection
