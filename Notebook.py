@@ -36,6 +36,12 @@ import pandas as pd
 import os
 import numpy as np
 
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+# %%
+plt.style.use('classic')
+
 # %% [markdown]
 # ## Collecting Data
 #
@@ -206,10 +212,11 @@ cate_cols_info
 # ## Ask meaningful questions
 
 # %% [markdown]
-# - Are salaries dependence on programming level?
 # - Top 10 countries with the highest average salaries. 
 # - Top 10 programming language.
 # - Most commonly used text editor / IDE for each operating system.
+# - How long average does it take for one to reach professional level? 
+# - Most common type of developer in Vietnam?
 
 # %% [markdown]
 # ## Preprocessing data to answer the questions
@@ -218,9 +225,11 @@ cate_cols_info
 # ### Answering questions
 
 # %% [markdown]
-# #### Top 10 countries with the highest average salaries. 
+# #### 1. Top 10 countries with the highest average salaries. 
 #
-# To answer this, we only consider countries with more than 1000 respondences
+# To answer this, we only consider countries with more than 1000 respondents. 
+#
+# Countries with too low number of respondents might cause bias in the data.
 
 # %%
 salary_df = df1[['Country', 'ConvertedCompYearly']]
@@ -228,10 +237,17 @@ s = salary_df.groupby('Country').agg({'count', 'mean'})
 s.columns = ['Average', 'Count']
 s = s.loc[s['Count'] >= 1000]
 s = s.sort_values(by = ['Average'], ascending = False)
-s.head(20)
+s = s.head(10)
+
+# %%
+plt.figure()
+s['Average'].plot.barh()
 
 # %% [markdown]
-# #### Top 10 programming language in 2021
+# As expected, the US seems to have the highest compensation.
+
+# %% [markdown]
+# #### 2. Top 10 programming language in 2021
 
 # %%
 lang_df = pd.DataFrame(df1['LanguageHaveWorkedWith'].str.split(';').explode().reset_index()).groupby('LanguageHaveWorkedWith').count()
@@ -239,11 +255,57 @@ lang_df = lang_df.sort_values('index', ascending = False)
 lang_df.columns = ['count']
 lang_df.head(10)
 
+# %% [markdown]
+#
+# #### 3. Most commonly used text editor / IDE for each operating system.
+#
+
+# %%
+temp_df = df1[['OpSys', 'NEWCollabToolsHaveWorkedWith']]
+temp_df.loc[:, 'NEWCollabToolsHaveWorkedWith'] = temp_df['NEWCollabToolsHaveWorkedWith'].str.split(';')
+
+tools_df = temp_df.explode('NEWCollabToolsHaveWorkedWith').groupby(['OpSys', 'NEWCollabToolsHaveWorkedWith']).size().to_frame('Size')
+tools_df = tools_df.reset_index()
+tools_df = tools_df.sort_values(['OpSys','NEWCollabToolsHaveWorkedWith'], ascending= False)
+tools_df.columns = ['OpSys', 'Tools', 'Size']
+tools_df = tools_df.pivot(columns = 'Tools', index = 'OpSys', values = 'Size')
+
+for idx in tools_df.index:
+    plt.figure()
+    plt.title(idx)
+    tools_df.loc[idx].sort_values().plot.barh()
+
+# %% [markdown]
+# #### 4. Most common type of developer in Vietnam.
+
+# %%
+vn_df = df1[df1['Country'] == 'Viet Nam']
+vn_df.groupby('MainBranch').size().plot.barh()
+
+
+# %% [markdown]
+# By education level: How many developers in VN have a Bachlelor's degree?
+
+# %%
+s = 'I am a developer by profession'
+temp_df = vn_df[vn_df['MainBranch'] == s]
+temp_df.groupby('EdLevel').size().plot.barh()
+
+# %% [markdown]
+# So mostly they have a Bachelor's degree. 
+#
+# Dropping out is also feasible...
+
 # %% [markdown] tags=[]
 # ## Reflection
+#
+# - There are some difficulties collaborating with git
 
 # %% [markdown]
 # ## References
+
+# %% [markdown]
+# - Python Data Science Handbook
 
 # %% [markdown]
 #
