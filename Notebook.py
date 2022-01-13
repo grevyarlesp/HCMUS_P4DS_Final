@@ -212,11 +212,29 @@ cate_cols_info
 # ## Ask meaningful questions
 
 # %% [markdown]
-# - Top 10 countries with the highest average salaries. 
-# - Top 10 programming language.
-# - Most commonly used text editor / IDE for each operating system.
-# - Most common type of developer in Vietnam?
-# - How long does it take for a programmer to become a pro?
+# 1. Top 10 countries with the highest average salaries. 
+#     
+#     **Benefits:** Salary is something that most working people are interested in and choosing the Top 10 countries with the           highest average salaries will help a lot in choosing a programmer's working environment.
+#     
+#     
+# 2. Top 10 programming language.
+#
+#     **Benefits:** Programming languages are something that a programmer must know and the statistics of the Top 10 programming         languages will help those who are in the learning process can choose to learn the most popular programming languages.
+#     
+#     
+# 3. Most commonly used text editor / IDE for each operating system.
+#         
+#     **Benefits:** 
+#
+#
+# 4. Most common type of developer in Vietnam?
+#
+#     **Benefits:** Help to find out the most common types of developer in Vietnam and show how many of them have a Bachlelor's         degree.
+#
+#
+# 5. How long does it take for a programmer to become a pro?
+#     
+#     **Benefits:** People who are about to start learning programming are so interested in how long it will take them to become a       professional programmer and the answer to this question will help them know more about this.
 
 # %% [markdown]
 # ## Preprocessing data to answer the questions
@@ -308,13 +326,25 @@ time_take_df = year_df['YearsCode'] - year_df['YearsCodePro']
 time_take_df.mean().round(1)
 
 # %% [markdown]
-# - It takes more than 5 years to become a pro programmer.
-# - The time taken is also relatively similar to the education time at universities and colleges.
+# It takes more than 5 years to become a pro programmer.
+#
+# The time taken is also relatively similar to the education time at universities and colleges.
 
 # %% [markdown] tags=[]
 # ## Reflection
+# #### What difficulties have you encountered?
+# Kiến Quốc:
 #
-# - There are some difficulties collaborating with git
+# Khắc Vỹ: Having some difficulty asking meaningful, factual questions about studying and working in the industry. Besides, collaborating on github also causes some difficulties for me.
+#
+# #### What have you learned?
+# Kiến Quốc:
+#
+# Khắc Vỹ: I have learned how to pose a problem and solve it with a dataset and processing steps in this course.
+#
+# #### If you had more time, what would you do?
+# Group: We will approach more aspects of the IT industry through more meaningful questions and answers.
+#
 
 # %% [markdown]
 # ## References
