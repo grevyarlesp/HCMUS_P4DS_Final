@@ -215,8 +215,8 @@ cate_cols_info
 # - Top 10 countries with the highest average salaries. 
 # - Top 10 programming language.
 # - Most commonly used text editor / IDE for each operating system.
-# - How long average does it take for one to reach professional level? 
 # - Most common type of developer in Vietnam?
+# - How long does it take for a programmer to become a pro?
 
 # %% [markdown]
 # ## Preprocessing data to answer the questions
@@ -256,7 +256,6 @@ lang_df.columns = ['count']
 lang_df.head(10)
 
 # %% [markdown]
-#
 # #### 3. Most commonly used text editor / IDE for each operating system.
 #
 
@@ -295,6 +294,22 @@ temp_df.groupby('EdLevel').size().plot.barh()
 # So mostly they have a Bachelor's degree. 
 #
 # Dropping out is also feasible...
+
+# %% [markdown]
+# #### 5. How long does it take for a programmer to become a pro?
+
+# %% [markdown]
+# To answer this question, we only use years for which figures are available.
+
+# %%
+year_df = df1[['YearsCode', 'YearsCodePro']]
+year_df = year_df[year_df['YearsCodePro'].isna() != 1]
+time_take_df = year_df['YearsCode'] - year_df['YearsCodePro']
+time_take_df.mean().round(1)
+
+# %% [markdown]
+# - It takes more than 5 years to become a pro programmer.
+# - The time taken is also relatively similar to the education time at universities and colleges.
 
 # %% [markdown] tags=[]
 # ## Reflection
