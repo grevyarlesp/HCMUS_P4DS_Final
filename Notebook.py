@@ -268,10 +268,12 @@ s['Average'].plot.barh()
 # #### 2. Top 10 programming language in 2021
 
 # %%
+
+# %%
 lang_df = pd.DataFrame(df1['LanguageHaveWorkedWith'].str.split(';').explode().reset_index()).groupby('LanguageHaveWorkedWith').count()
 lang_df = lang_df.sort_values('index', ascending = False)
 lang_df.columns = ['count']
-lang_df.head(10)
+display(lang_df.head(10))
 
 # %% [markdown]
 # #### 3. Most commonly used text editor / IDE for each operating system.
@@ -333,24 +335,25 @@ time_take_df.mean().round(1)
 # %% [markdown] tags=[]
 # ## Reflection
 # #### What difficulties have you encountered?
-# Kiến Quốc:
+# Kiến Quốc: There are some challenges regarding using git to manage and version control Jupyter Notebook files. 
 #
 # Khắc Vỹ: Having some difficulty asking meaningful, factual questions about studying and working in the industry. Besides, collaborating on github also causes some difficulties for me.
 #
 # #### What have you learned?
-# Kiến Quốc:
+# Kiến Quốc: Learned how to efficiently use Pandas, Numpy in this course and doing this project, and how to collaborate using git. 
 #
 # Khắc Vỹ: I have learned how to pose a problem and solve it with a dataset and processing steps in this course.
 #
 # #### If you had more time, what would you do?
 # Group: We will approach more aspects of the IT industry through more meaningful questions and answers.
-#
 
 # %% [markdown]
 # ## References
 
 # %% [markdown]
 # - Python Data Science Handbook
+#
+# - Lecture slides
 
 # %% [markdown]
 #
