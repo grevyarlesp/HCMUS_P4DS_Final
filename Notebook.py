@@ -14,8 +14,6 @@
 #     name: python3
 # ---
 
-# %%
-
 # %% [markdown]
 # # Final Project
 
@@ -63,6 +61,19 @@ plt.style.use('classic')
 # 3.  How did authors collect data?
 #
 # Data are collected by survey
+
+# %%
+# unzip data
+DATA_DIR = './data/stack-overflow-developer-survey-2021/'
+try:
+    os.makedirs(DATA_DIR)
+    link = 'https://info.stackoverflowsolutions.com/rs/719-EMH-566/images/stack-overflow-developer-survey-2021.zip'
+    # !wget $link -P $DATA_DIR
+    datafile = os.path.join(DATA_DIR, 'stack-overflow-developer-survey-2021.zip')
+    # !unzip $datafile -d $DATA_DIR
+    # !rm $datafile -f
+except:
+    pass
 
 # %% [markdown]
 # ## Exploring Data
